@@ -1,0 +1,31 @@
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    float n1, n2;
+    
+    std::cout << "ACTIVIDAD DOS, OPERACIONES BÁSICAS EN C++" << std::endl;
+    cout<< "BIENVENIDO FAVOR DE INGRESAR LO QUE SE PIDE PARA REALIZAR OPERACIONES"<<endl;
+
+    cout<< "Escribe el primer número: \n";
+    cin>>n1;
+    
+     cout<< "Escribe el segundo número: \n";
+    cin>>n2;
+
+     float suma = n1+n2;
+     float resta = n1-n2;
+     float multiplicacion = n1*n2;
+     float division = n1/n2;
+     
+     
+     cout<<"La suma es: "<<suma<<endl;  
+     cout<<"La resta es: "<<resta<<endl; 
+     cout<<"La multiplicación es: "<<multiplicacion<<endl;
+     cout<<"La división es: "<<division<<endl; 
+     cout<< "¡¡¡SIGUE ASI!!! \n";
+    return 0;
+}
