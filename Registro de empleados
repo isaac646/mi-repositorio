@@ -1,0 +1,102 @@
+
+#include <iostream>
+#include <windows.h>
+#include <sql.h>
+#include <sqlext.h>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+	SQLHENV hEnv;
+	SQLHDBC hDbc;
+	SQLRETURN ret;
+
+	//Asignar un gestor de entorno.
+	ret = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
+	ret = SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (SQLPOINTER)SQL_OV_ODBC3, 0);
+
+	//Asignar un gestor de conexion.
+	ret = SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc);
+
+	//Conectarse a la base de datos.
+	ret = SQLConnect(hDbc, (SQLWCHAR*)L"sqlserver", SQL_NTS, (SQLWCHAR*)L"Username", SQL_NTS, (SQLWCHAR*)L"Password", SQL_NTS);
+
+	if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO) {
+		cout << "conectado a la base de datos exitosamente." << endl;
+
+		//Consulta.
+		SQLHSTMT hStmt;
+		ret = SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+
+		cout << "+---------------+--------------------------------+--------------+---------------+---------------+---------------+-----------------------+------------+" << endl;
+		cout << "| No. Empleado | Nombre Completo                | Fecha Nac  | RFC         | Centro Trabajo| Puesto           | Dec. puesto              | Directivo  |" << endl;
+		cout << "+---------------+--------------------------------+--------------+---------------+---------------+---------------+-----------------------+------------+" << endl;
+
+		//Consulta select 
+		ret = SQLExecDirect(hStmt, (SQLWCHAR*)L"SELECT* FROM EMPLEADOS", SQL_NTS);
+		if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO) {
+			int num_empleado;
+			SQLCHAR name[50];
+			SQLCHAR last_name[100];
+			SQLCHAR slat_name[100];
+			SQLCHAR fecha_nac[15];
+			SQLCHAR rfc[15];
+			SQLCHAR Centro_trabajo[40];
+			SQLCHAR Puesto[50];
+			SQLCHAR Desc_puesto[200];
+			SQLCHAR Directivo[50];
+			while (SQLFetch(hStmt) == SQL_SUCCESS) {
+				SQLGetData(hStmt, 1, SQL_C_LONG, &num_empleado, 0, NULL);
+				SQLGetData(hStmt, 2, SQL_C_CHAR, name, sizeof(name), NULL);
+				SQLGetData(hStmt, 3, SQL_C_CHAR, last_name, sizeof(last_name), NULL);
+				SQLGetData(hStmt, 4, SQL_C_CHAR, slat_name, sizeof(slat_name), NULL);
+				SQLGetData(hStmt, 5, SQL_C_CHAR, fecha_nac, sizeof(fecha_nac), NULL);
+				SQLGetData(hStmt, 6, SQL_C_CHAR, rfc, sizeof(rfc), NULL);
+				SQLGetData(hStmt, 7, SQL_C_CHAR, Centro_trabajo, sizeof(Centro_trabajo), NULL);
+				SQLGetData(hStmt, 8, SQL_C_CHAR, Puesto, sizeof(Puesto), NULL);
+				SQLGetData(hStmt, 9, SQL_C_CHAR, Desc_puesto, sizeof(Desc_puesto), NULL);
+				SQLGetData(hStmt, 10, SQL_C_CHAR, Directivo, sizeof(Directivo), NULL);
+
+				//cout << "Num_empleado:" << num_empleado << ", Nombre:" << Nombre << ", Apellido_pat:" << Apellido_pat << ", Apellido_mat:" << Apellido_mat << ", Fecha_nac:" << Fecha_nac << ", RFC:" << RFC << ", Centro_trabajo:" << Centro_trabajo << ", puesto:" << Puesto << ", Desc_puesto:" << Desc_puesto << endl;
+
+				//Conctener Nombre y Apellido Paterno
+				string last_names = string((char*)last_name) + " " + string((char*)slat_name);
+				string full_name = string((char*)name) + " " + string(last_names);
+				string dir = string((char*)Directivo);
+				string respuesta;
+
+				if (dir == "1") {
+					respuesta = "SI";
+				}
+				else
+				{
+					respuesta = "NO";
+
+				}
+				//Imprimir datos de la fila con alineacion
+				cout << "|" << setw(14) << left << num_empleado
+					<< "| " << setw(31) << left << full_name
+					<< "| " << setw(11) << left << fecha_nac
+					<< "| " << setw(12) << left << rfc
+					<< "| " << setw(14) << left << Centro_trabajo
+					<< "| " << setw(17) << left << Puesto
+					<< "| " << setw(25) << left << Desc_puesto
+					<< "| " << setw(10) << left << respuesta << " |" << endl;
+			}
+		}
+		//Imprimir Linea Final De La Tabla
+		cout << "+---------------+--------------------------------+--------------+---------------+---------------+---------------+-----------------------+------------+" << endl;
+
+		//Liberar el manejadro de conexion
+		SQLFreeHandle(SQL_HANDLE_STMT, hStmt);
+	}
+	else {
+		std::cout << "Fallo la conexion a la base de datos." << endl;
+	}
+	//Desconectar y liberar gestores de entorno.
+	SQLDisconnect(hDbc);
+	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
+	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+	return 0;
+}
