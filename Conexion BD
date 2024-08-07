@@ -1,0 +1,49 @@
+#include <iostream>
+#include <windows.h>
+#include <sql.h>
+#include <sqlext.h>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+	SQLHENV hEnv;
+	SQLHDBC hDbc;
+	SQLRETURN ret;
+
+	//Asignar un gestor de entorno.
+	ret = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &hEnv);
+	ret = SQLSetEnvAttr(hEnv, SQL_ATTR_ODBC_VERSION, (SQLPOINTER)SQL_OV_ODBC3, 0);
+
+	//Asignar un gestor de conexion.
+	ret = SQLAllocHandle(SQL_HANDLE_DBC, hEnv, &hDbc);
+
+	//Conectarse a la base de datos.
+	ret = SQLConnect(hDbc, (SQLWCHAR*)L"sqlserver", SQL_NTS, (SQLWCHAR*)L"username", SQL_NTS, (SQLWCHAR*)L"password", SQL_NTS);
+
+	if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO) {
+		cout << "conectado a la base de datos exitosamente." << endl;
+
+		//Consulta.
+		SQLHSTMT hStmt;
+		ret = SQLAllocHandle(SQL_HANDLE_STMT, hDbc, &hStmt);
+		cout << "+--------------------------------------------------------------------------------------------------------------------------------------------------------+" << endl;
+		cout << "|Num_empleado     |Nombre     |Apellido_pat     |Apellido_mat     |Fecha_nac    |RFC        |Num_centro    |Puesto     |Desc_puesto    |Directivo        |" << endl;
+		cout << "+-----------------|-----------|-----------------|-----------------|-------------|-----------|--------------|-----------|---------------|-----------------+" << endl;
+		cout << "|                 |           |                 |                 |             |           |              |           |               |                 |" << endl;
+		cout << "|                 |           |                 |                 |             |           |              |           |               |                 | " << endl;
+		cout << "+-----------------|-----------|-----------------|-----------------|-------------|-----------|--------------|-----------|---------------|-----------------+" << endl;
+
+	
+
+		
+	}else {
+		std::cout << "Fallo la conexion a la base de datos." << endl;
+	}
+	//Desconectar y liberar gestores de entorno.
+	SQLDisconnect(hDbc);
+	SQLFreeHandle(SQL_HANDLE_DBC, hDbc);
+	SQLFreeHandle(SQL_HANDLE_ENV, hEnv);
+
+	return 0;
+}
