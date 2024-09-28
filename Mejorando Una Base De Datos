@@ -1,0 +1,106 @@
+USE AkirasBoutiques
+
+CREATE TABLE Empleados (
+    id_empleado INT PRIMARY KEY,  -- Identificador único para el empleado
+    nombre VARCHAR(100) NOT NULL,               -- Nombre del empleado
+    direccion VARCHAR(200) NOT NULL,            -- Dirección del empleado
+    telefono VARCHAR(15) NOT NULL,              -- Número de teléfono
+    edad INT NOT NULL,                          -- Edad
+    sucursal_id INT,                            -- Identificador de la sucursal (relación con la tabla de sucursales)
+    correo VARCHAR(100) NOT NULL UNIQUE,        -- Correo electrónico
+    contrasena VARCHAR(255) NOT NULL,			-- Contraseña (debería almacenarse encriptada)
+    FOREIGN KEY (sucursal_id) REFERENCES Sucursales (id_sucursal) -- Relación con la tabla de sucursales
+	ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+CREATE TABLE Sucursales (
+    id_sucursal INT PRIMARY KEY , -- Identificador único para la sucursal
+    nombre_sucursal VARCHAR(60) NOT NULL,       -- Nombre de la sucursal
+    encargado VARCHAR(100) NOT NULL,             -- Nombre de la persona encargada
+    direccion VARCHAR(200) NOT NULL,             -- Dirección de la sucursal
+    telefono VARCHAR(15) NOT NULL,               -- Teléfono de la sucursal
+    ciudad VARCHAR(100) NOT NULL,                -- Ciudad
+    estado VARCHAR(100) NOT NULL                 -- Estado
+	
+);
+
+USE AkirasBoutiques
+
+
+
+-- Inserción de datos en la tabla Sucursal
+INSERT INTO Sucursales (id_sucursal,nombre_sucursal, encargado, direccion, telefono, ciudad, estado) VALUES
+('1','Akira’s Boutique:Las Mercedes', 'Sonia Alejandra Fernandez Moreno', 'Calle roble #507 Fracc.Las Mercedes', '444-783-1225', 'San Luis Potosi', 'San Luis Potosi'),
+('2','Akira’s Boutique: Obraje', 'Fernandi Calderon Ayala', 'Calle Dr. Jesus Diaz de Leon #438 Col.Obraje', '449-378-0921', 'Aguascalientes', 'Aguascalientes'),
+('3','Akira’s Boutique:Mazatlan', 'Daniela Fernanda Diaz Ordaz', 'Av.de la Marina#6204,Marina,Local 35', '669-293-2059', 'Mazatlan', 'Sinaloa'),
+('4','Akira’s Boutique: Zapopan', 'Mario Alberto Jimenez Salcido', 'Av.Manuel J. Clouthier 525 Col.Benite Juarez', '333-784-1230', 'Zapopam', 'Jalisco'),
+('5','Akira’s Boutique:Melchor', 'Yesenia Guadalupe Campos Rojo', 'Av.Melchor Ocampo #2528 Zona Centro', '614-390-6721', 'Chihuahua', 'Chihuahua'),
+('6','Akira’s Boutique:Constitucion', 'Tamara Alejandra Bernal Ramos', 'Calle Constitucion#106 Zona Centro', '618-196-2954', 'Durango', 'Durango'),
+('7','Akira’s Boutique:Centro', 'Samuel Enrique Barrios Enciso', 'Av.Hidalgo#338 Zacatecas Centro', '492-930-1250', 'Zacatecas', 'Zacatecas');
+
+-- Inserción de datos en la tabla Empleados
+INSERT INTO Empleados (nombre,direccion,telefono,edad,sucursal_id,correo,contrasena) VALUES
+('Juan Pérez', 'Calle 1', '555-1234', '30', ' 1', 'juan.perez@ejemplo.com', 'pass123'),
+('María López', 'Calle 2', '555-2345', '25', ' 1', 'maria.lopez@ejemplo.com', 'pass234'),
+('Luis García', 'Calle 3', '555-3456', '28', '1', 'luis.garcia@ejemplo.com', 'pass345'),
+('Ana Torres', 'Calle 4', '555-4567', '35', ' 1', 'ana.torres@ejemplo.com', 'pass456'),
+('Eva Torres', 'Calle 5', '555-4567', '32', ' 1', 'eva.torres@ejemplo.com', 'pass4526'),
+('Carlos Martínez', 'Calle 6', '555-5678',' 40', ' 1', 'carlos.martinez@ejemplo.com', 'pass567'),
+('Patricia Ruiz', 'Calle 7', '555-6789', '29', ' 2', 'patricia.ruiz@ejemplo.com', 'pass678'),
+('Guzman Torres', 'Calle 8', '555-4567', '25', '  2', 'guzman.torres@ejemplo.com', 'pas621s456'),
+('David Gómez', 'Calle 9', '555-7890', '32', ' 2', 'david.gomez@ejemplo.com', 'pass789'),
+('Laura Hernández', 'Calle 10', '555-8901',' 27', ' 2', 'laura.hernandez@ejemplo.com', 'pass890'),
+('José Rodríguez', 'Calle 11', '555-9012', '45', ' 2', 'jose.rodriguez@ejemplo.com', 'pass901'),
+('Elena Martínez', 'Calle 12', '555-0123', '31', ' 2', 'elena.martinez@ejemplo.com', 'pass0123'),
+('Mario Fernández', 'Calle 13', '555-7890', '34', ' 3', 'mario.fernandez@ejemplo.com', 'pass7890'),
+('Zuleth Torres', 'Calle 14', '555-4567', '19', ' 3', 'zth.torres@ejemplo.com', 'pasfers456'),
+('Fernando Torres', 'Calle 15', '555-8901', '30', ' 3', 'fernando.torres@ejemplo.com', 'pass8901'),
+('Rosa Pérez', 'Calle 16', '555-9012', '26', ' 3', 'rosa.perez@ejemplo.com', 'pass9012'),
+('Sofía López', 'Calle 17', '555-0123', '29', ' 3', 'sofia.lopez@ejemplo.com', 'pass0124'),
+('Javier García', 'Calle 18', '555-1234', '36', ' 3', 'javier.garcia@ejemplo.com', 'pass1234'),
+('Laura Gómez', 'Calle 19', '555-8901', '28', ' 4', 'laura.gomez@ejemplo.com', 'pass8902'),
+('Héctor Ruiz', 'Calle 20', '555-9012', '33', '4', 'hector.ruiz@ejemplo.com', 'pass9013'),
+('Junior Torres', 'Calle 21', '555-4567',' 22', ' 4', 'jur.torres@ejemplo.com', 'pasgurms456'),
+('Claudia Torres', 'Calle 22', '555-0123', '40', ' 4', 'claudia.torres@ejemplo.com', 'pass0125'),
+('Carla Guzman', 'Calle 23', '555-1234', '39', ' 4', 'car.guz@ejemplo.com', 'pass1235'),
+('Fernanda Sánchez', 'Calle 24', '555-2345',' 35', ' 4', 'fernanda.sanchez@ejemplo.com', 'pass2346'),
+('Luis Hernández', 'Calle 25,', '555-9012', '38', ' 5', 'luis.hernandez@ejemplo.com', 'pass987'),
+('Fernanda Torres', 'Calle 26', '555-4567', '23', ' 5', 'Frmtz.torres@ejemplo.com', 'pamtfss456'),
+('Victor Morales', 'Calle 27', '555-0123', '27',' 5', 'victor.morales@ejemplo.com', 'pass098'),
+('Gabriela López', 'Calle 28', '555-1234', '32', ' 5', 'gabriela.lopez@ejemplo.com', 'pass2345'),
+('Angela Castro', 'Calle 29', '555-2345', '31', ' 5', 'angela.castro@ejemplo.com', 'pass3456'),
+('Raúl Fernández', 'Calle 30', '555-3456', '29', ' 5', 'raul.fernandez@ejemplo.com', 'pass4567'),
+('Luis Gutierrez', 'Calle 31', '555-9012', '38', ' 6', 'luis.guz@ejemplo.com', 'pass987sdfsa'),
+('Ana Martinez', 'Calle 32', '555-4567', '21', ' 6', 'ana.mtz@ejemplo.com', 'paanmtzss456'),
+('Victoria Ram', 'Calle 33', '555-0123', '27', ' 6', 'victor.ram@ejemplo.com', 'pass098'),
+('Gabriela Guaway', 'Calle 36', '555-1234', '32', '6', 'gabriela.guw@ejemplo.com', 'pass2345sadf'),
+('Angela Cast', 'Calle 35', '555-2345',' 31', ' 6', 'angela.cast@ejemplo.com', 'pass3456sads'),
+('Raúl Fernánz', 'Calle 36', '555-3456', '29', ' 6', 'raul.fernanz@ejemplo.com', 'pass4567dscdw'),
+('Luisa Hernández', 'Calle 37', '555-9012',' 38', '7', 'luisa.hernandez@ejemplo.com', 'pass9871232'),
+('Aaron borre', 'Calle 38', '555-4567', '19', '7', 'aaron.bbaja@ejemplo.com', 'pass456'),
+('Victor Frans Morales', 'Calle 39', '555-0123',' 27', ' 7', 'victor.fm@ejemplo.com', 'pass098ydsd'),
+('Gabriel López', 'Calle 40', '555-1234', '32', ' 7', 'gabriel.lopez@ejemplo.com', 'pass2345sfds')
+;
+
+SELECT id_empleado, nombre, direccion, telefono, edad, correo
+FROM Empleados;
+
+SELECT nombre, edad, sucursal_id, correo
+FROM Empleados
+WHERE edad > 30;
+
+
+SELECT nombre, edad
+FROM Empleados
+ORDER BY edad DESC;
+
+SELECT nombre,edad
+FROM Empleados
+ORDER BY edad ASC
+;
+
+SELECT * 
+FROM Sucursales;
+
+SELECT *FROM Sucursales INNER JOIN factura ON Sucursales.id_sucursal = factura.id_factura
