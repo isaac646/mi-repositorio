@@ -1,0 +1,92 @@
+--1 ● Seleccionar los clientes del año 2021 en base a la fecha de la factura.
+
+
+SELECT  nombre, email, fecha
+FROM Cliente
+JOIN factura ON cliente.id_cliente = factura.id_cliente
+WHERE YEAR(fecha) = 2021;
+
+--2 Seleccionar los clientes de 2022 (hasta el momento) en base a la fecha de la factura
+
+SELECT nombre, email, fecha
+FROM Cliente
+JOIN Factura ON Cliente.id_cliente = Factura.id_cliente
+WHERE fecha >= '2022-01-01' AND fecha <= GETDATE();
+
+
+--3 ● Seleccionar los clientes de diciembre de 2021.
+
+SELECT nombre, email, fecha
+FROM Cliente
+JOIN Factura ON Cliente.id_cliente = Factura.id_cliente
+WHERE YEAR(fecha) = 2021 AND MONTH(fecha) = 12;
+
+
+--4 ¿Qué compras han realizado los siguientes clientes?:
+
+SELECT Factura.id_factura, Cliente.nombre, Producto.nombre, Factura.fecha
+FROM Cliente
+JOIN Factura ON Cliente.id_cliente = Factura.id_cliente
+JOIN Producto ON Factura.id_detalle = Producto.id_producto -- Cambia id_detalle si es incorrecto
+WHERE CAST(Cliente.nombre AS VARCHAR(MAX)) IN ('Valentina Anastasia', 
+                                               'Zayra Manuela ', 
+                                               'Dante Eduardo ', 
+                                               'Ana Maribel ', 
+                                               'Rodrigo Ismael');
+
+--5 Seleccionar el producto que más ventas ha tenido.
+
+SELECT TOP 1 CAST(Producto.nombre AS VARCHAR(MAX)) AS nombre_producto, COUNT(Factura.id_detalle) AS total_ventas
+FROM Producto
+JOIN Factura ON Producto.id_producto = Factura.id_cliente  -- Asegúrate de que esta columna es correcta
+GROUP BY CAST(Producto.nombre AS VARCHAR(MAX))
+ORDER BY total_ventas DESC;
+
+--6 ● ¿Qué producto tienen más cantidad en stock?
+
+SELECT TOP 1 nombre, stock
+FROM Producto
+ORDER BY stock DESC
+
+--7 Ordenar, de la más antigua a la más reciente, las compras que ha habido en la tienda
+
+SELECT id_factura, fecha
+FROM Factura
+ORDER BY fecha ASC;
+
+-- 8 ● Ordenar alfabéticamente los nombres de todos los clientes de la tienda
+
+SELECT CAST(nombre AS VARCHAR(MAX)) AS nombre_cliente
+FROM Cliente
+ORDER BY nombre_cliente ASC;
+
+-- 9 ● Seleccionar cuáles productos pertenecen a cada categoría:
+
+
+SELECT Producto.nombre, Categoria.nombre AS categoria_nombre
+FROM Producto
+JOIN Categoria ON Producto.id_categoria = Categoria.id_categoria;
+
+-- 10 ● Seleccionar los encargados de las sucursales de la tienda Akira’s Boutique
+
+USE AkirasBoutiques;
+
+SELECT nombre_sucursal, encargado
+FROM Sucursales  -- Asegúrate de usar el esquema adecuado
+WHERE nombre_sucursal LIKE 'Akira%';
+
+--11  Seleccionar los empleados que trabajan en la sucursal de Akira’s Boutique:Constitución
+
+USE AkirasBoutiques
+
+SELECT encargado
+FROM Sucursales
+WHERE nombre_sucursal = 'Akira’s Boutique:Constitucion';  -- Ajusta el nombre según sea necesario
+
+-- 12 ● ¿Qué clientes son mayores de 30 años?
+
+SELECT nombre, fec_nac
+FROM Cliente
+WHERE fec_nac < DATEADD(YEAR, -30, GETDATE());
+
+
