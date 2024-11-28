@@ -1,0 +1,150 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Actividad_1._1
+{
+    public partial class Form1 : Form
+    {
+        private string direccion;
+
+        public string Nombre { get; private set; }
+        public string Carrera { get; private set; }
+        public float Edad { get; private set; }
+        public DateTime Fecha { get; private set; }
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("\n\n Su direccion:");
+            direccion = Console.ReadLine();
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            if (textBox != null)
+            {
+                // Leer el texto del TextBox
+                string textoIngresado = textBox.Text;
+
+                // Intentar convertir el texto a un número
+                int fecha;
+                if (int.TryParse(textoIngresado, out fecha))
+                {
+                    Console.WriteLine($"Fecha De Nacimiento: {fecha}");
+                }
+                else
+                {
+                    Console.WriteLine("Por favor, ingrese un número válido.");
+                }
+            }
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            if (textBox != null)
+            {
+                // Leer el texto del TextBox
+                string textoIngresado = textBox.Text;
+
+                // Intentar convertir el texto a un número
+                int edad;
+                if (int.TryParse(textoIngresado, out edad))
+                {
+                    Console.WriteLine($"Edad ingresada: {edad}");
+                }
+                else
+                {
+                    Console.WriteLine("Por favor, ingrese un número válido.");
+                }
+            }
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("\n\n Nombre completo:");
+            Nombre = Console.ReadLine();
+
+        }
+
+        private void Button1Click(object sender, EventArgs e)
+        {
+           
+       
+            // Obtener datos del formulario
+            string nombreCompleto = txtNombreCompleto.Text;
+            string edad = txtEdad.Text;
+            string fechaNacimiento = txtFechaNacimiento.Text;
+            string direccion = txtDireccion.Text;
+            string carrera = txtCarrera.Text;
+
+            // Obtener el turno seleccionado
+            string turno = rbtnMatutino.Checked ? "Matutino" : "Vespertino";
+
+            // Obtener el estado seleccionado
+            string estado = lstEstados.SelectedItem?.ToString() ?? "No seleccionado";
+
+            // Mostrar los datos en un mensaje (o procesarlos como desees)
+            MessageBox.Show($" Gracias por formar parte de UMI/Universidad Coppel, bienvenido a la carrera de \n " +
+                            $"Carrera: {carrera}\n" +
+                            $"Nombre Completo: {nombreCompleto}\n" +
+                            $"Edad: {edad}\n" +
+                            $"Fecha de Nacimiento: {fechaNacimiento}\n" +
+                            $"Dirección: {direccion}\n" +
+                            $"Turno: {turno}\n" +
+                            $"Estado: {estado}",
+                            "Información Capturada ");
+        }
+
+        
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCarrera_TextChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("\n\n Carrera a la que desea ingresar:");
+            Carrera = Console.ReadLine();
+
+        }
+    }
+}
