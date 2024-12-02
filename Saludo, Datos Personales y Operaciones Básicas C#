@@ -1,0 +1,355 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Actividad_2
+{
+    public partial class Ingreso : Form
+    {
+        public Ingreso()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (textPassword.Text == "Admin") //Validacion
+            {
+                Menu menu = new Menu();
+                menu.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Contraseña Incorrecta ","Favor De Validar");
+            }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Ingreso_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Actividad_2
+{
+    public partial class Menu : Form
+    {
+        public Menu()
+        {
+            InitializeComponent();
+        }
+
+        private void Menu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saludoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            {
+                Saludo saludoForm = new Saludo(); // Crea una nueva instancia del formulario Saludo
+                saludoForm.Show();  // Muestra el formulario Saludo
+                Hide();
+            }
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            {
+                Application.Exit();
+            }
+        }
+
+        private void regresarAInicioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Ingreso ingreso = new Ingreso();
+            ingreso.Show();
+            Hide();
+        }
+
+        private void datosPersonalesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Informacion_Personal InformaciónPersonalForm = new Informacion_Personal(); // Crea una nueva instancia del formulario InformacionPersonal
+            InformaciónPersonalForm.Show();  // Muestra el formulario Informacion Personal
+            Hide();
+        }
+
+        private void operacionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Operaciones_Basicas operacionesBásicasForm = new Operaciones_Basicas(); // Crea una nueva instancia del formulario Operaciones Basicas
+            operacionesBásicasForm.Show();  // Muestra el formulario OperacionesBasicas
+            Hide();
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Actividad_2
+{
+    public partial class Saludo : Form
+    {
+        public Saludo()
+        {
+            InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            {
+                string nombre = txtNombre.Text;  // Obtener el nombre del TextBox
+                MessageBox.Show($"Hola {nombre}, ¿Qué tal va tu día?", "Bienvenida"); // Mostrar mensaje
+               
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            {
+                Menu menu = new Menu(); // Crea una nueva instancia del formulario Saludo
+                menu.Show();
+                this.Close();
+
+            }
+        }
+
+        private void Saludo_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Actividad_2
+{
+    public partial class Operaciones_Basicas : Form
+    {
+        public Operaciones_Basicas()
+        {
+            InitializeComponent();
+        }
+
+        private void Operaciones_Basicas_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSumar_Click(object sender, EventArgs e)
+        
+            {
+                try
+                {
+                    // Convertir los valores de los TextBoxes a números
+                    double num1 = Convert.ToDouble(txtNumero1.Text);
+                    double num2 = Convert.ToDouble(txtNumero2.Text);
+                    double num3 = Convert.ToDouble(txtNumero3.Text);
+                    double num4 = Convert.ToDouble(txtNumero4.Text);
+                    double num5 = Convert.ToDouble(txtNumero5.Text);
+                    double num6 = Convert.ToDouble(txtNumero6.Text);
+
+                    // Realizar la suma
+                    double resultado = num1 + num2 + num3 + num4 + num5 + num6;
+
+                    // Mostrar el resultado en el TextBox de resultado
+                    txtResultado.Text = resultado.ToString();
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Por favor, ingresa solo números válidos.", "Validad Informacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            
+        }
+
+        private void btnRestar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                double num1 = Convert.ToDouble(txtNumero1.Text);
+                double num2 = Convert.ToDouble(txtNumero2.Text);
+                double num3 = Convert.ToDouble(txtNumero3.Text);
+                double num4 = Convert.ToDouble(txtNumero4.Text);
+                double num5 = Convert.ToDouble(txtNumero5.Text);
+                double num6 = Convert.ToDouble(txtNumero6.Text);
+
+                double resultado = num1 - num2 - num3 - num4 - num5 - num6;
+
+                txtResultado.Text = resultado.ToString();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Por favor, ingresa solo números válidos.", "Validad Informacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+        }
+
+        private void btnMultiplicar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                double num1 = Convert.ToDouble(txtNumero1.Text);
+                double num2 = Convert.ToDouble(txtNumero2.Text);
+                double num3 = Convert.ToDouble(txtNumero3.Text);
+                double num4 = Convert.ToDouble(txtNumero4.Text);
+                double num5 = Convert.ToDouble(txtNumero5.Text);
+                double num6 = Convert.ToDouble(txtNumero6.Text);
+
+                double resultado = num1 * num2 * num3 * num4 * num5 * num6;
+
+                txtResultado.Text = resultado.ToString();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Por favor, ingresa solo números válidos.", "Validar Informacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDividir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                double num1 = Convert.ToDouble(txtNumero1.Text);
+                double num2 = Convert.ToDouble(txtNumero2.Text);
+                double num3 = Convert.ToDouble(txtNumero3.Text);
+                double num4 = Convert.ToDouble(txtNumero4.Text);
+                double num5 = Convert.ToDouble(txtNumero5.Text);
+                double num6 = Convert.ToDouble(txtNumero6.Text);
+
+                // Validar divisores
+                if (num2 == 0 || num3 == 0 || num4 == 0 || num5 == 0 || num6 == 0)
+                {
+                    MessageBox.Show("No se puede dividir entre cero.", "Validar Informacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                double resultado = num1 / num2 / num3 / num4 / num5 / num6;
+
+                txtResultado.Text = resultado.ToString();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Por favor, ingresa solo números válidos.", "Valorar Informacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            // Limpiar todos los TextBoxes
+            txtNumero1.Text = string.Empty;
+            txtNumero2.Text = string.Empty;
+            txtNumero3.Text = string.Empty;
+            txtNumero4.Text = string.Empty;
+            txtNumero5.Text = string.Empty;
+            txtNumero6.Text = string.Empty;
+            txtResultado.Text = string.Empty;
+
+            // Opcional: Poner el foco en el primer TextBox
+            txtNumero1.Focus();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            {
+                Menu menu = new Menu(); // Crea una nueva instancia del formulario Saludo
+                menu.Show();
+                this.Close();
+
+            }
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Actividad_2
+{
+    public partial class Informacion_Personal : Form
+    {
+        public Informacion_Personal()
+        {
+            InitializeComponent();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Menu menu = new Menu(); // Crea una nueva instancia del formulario Saludo
+            menu.Show();
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Menu menu = new Menu(); // Crea una nueva instancia del formulario Saludo
+            menu.Show();
+            this.Close();
+        }
+
+        private void Informacion_Personal_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
