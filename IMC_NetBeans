@@ -1,0 +1,68 @@
+public class Personas {
+    
+    //Atributos
+    private float peso;
+    private float estatura;
+    private float imc;
+    
+    //Metodos
+
+    public float getPeso() {
+        return peso;
+    }
+
+    public void setPeso(float peso) {
+        this.peso = peso;
+    }
+
+    public float getEstatura() {
+        return estatura;
+    }
+
+    public void setEstatura(float estatura) {
+        this.estatura = estatura;
+    }
+
+    public float getImc() {
+        return imc;
+    }
+
+    public void setImc() {
+        this.imc = getPeso()/(getEstatura()*getEstatura());
+        
+    }
+    
+    public void mostrarImc (){
+           JOptionPane.showConfirmDialog(null," Su IMC Es: " + getImc());
+        
+        if (getImc()<18.5){
+            JOptionPane.showConfirmDialog(null," Bajo Peso " );   
+        } else if (getImc()>= 18.5 && getImc()<= 24.9){
+            JOptionPane.showConfirmDialog(null, " Normal ");
+        } else if (getImc()>= 25 && getImc()<= 29.9){
+            JOptionPane.showConfirmDialog(null, " Sobrepeso ");
+        }else if (getImc()>= 30 && getImc()<= 34.9){
+            JOptionPane.showConfirmDialog(null, " Obesidad 1 ");
+        }else if (getImc()>= 35 && getImc()<= 39.9){
+            JOptionPane.showConfirmDialog(null, " Obesidad 2 ");
+        }else {
+            JOptionPane.showConfirmDialog(null, " Obesidad 3 ");
+        }
+    }
+}
+
+//Para Boton Continuar
+
+        String p = JtfKilogramos.getText();
+        String e = JtfEstatura.getText();
+
+float peso = Float.parseFloat(p);
+        float estatura = Float.parseFloat(e);
+Personas persona = new Personas();
+        persona.setPeso(peso);
+        persona.setEstatura(estatura);
+persona.setImc();
+        persona.mostrarImc();
+
+JtfKilogramos.setText("");
+JtfEstatura.setText("");
